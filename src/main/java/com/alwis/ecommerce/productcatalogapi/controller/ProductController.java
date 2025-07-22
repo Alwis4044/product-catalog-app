@@ -19,6 +19,7 @@ public class ProductController {
     // Creating a product
     @PostMapping
     public Product createProduct(@Valid @RequestBody Product product){
+
         return productService.createProduct(product);
     }
 
