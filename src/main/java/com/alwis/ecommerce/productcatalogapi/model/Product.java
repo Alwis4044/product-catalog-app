@@ -30,7 +30,7 @@ public class Product {
     @Size(max = 255, message = "Description can be at most 255 characters")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     @JsonBackReference
     private Category category;
