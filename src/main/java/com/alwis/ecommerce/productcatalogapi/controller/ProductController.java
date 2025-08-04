@@ -1,5 +1,6 @@
 package com.alwis.ecommerce.productcatalogapi.controller;
 
+import com.alwis.ecommerce.productcatalogapi.error.ProductNotFoundException;
 import com.alwis.ecommerce.productcatalogapi.model.Product;
 import com.alwis.ecommerce.productcatalogapi.service.ProductService;
 import jakarta.validation.Valid;
@@ -31,7 +32,7 @@ public class ProductController {
 
     // Fetching a product by id
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") Long id){
+    public Product getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
         return productService.getProductById(id);
     }
 

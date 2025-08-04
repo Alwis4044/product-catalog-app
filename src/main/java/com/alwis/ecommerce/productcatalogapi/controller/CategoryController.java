@@ -1,6 +1,7 @@
 package com.alwis.ecommerce.productcatalogapi.controller;
 
 
+import com.alwis.ecommerce.productcatalogapi.error.CategoryNotFoundException;
 import com.alwis.ecommerce.productcatalogapi.model.Category;
 import com.alwis.ecommerce.productcatalogapi.service.CategoryService;
 import jakarta.validation.Valid;
@@ -30,7 +31,8 @@ public class CategoryController {
 
     // Get Category by ID
     @GetMapping("/{id}")
-    public Category getCategoryById(@PathVariable Long id){
+    public Category getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
+
         return categoryService.getCategoryById(id);
     }
 

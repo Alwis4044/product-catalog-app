@@ -1,5 +1,6 @@
 package com.alwis.ecommerce.productcatalogapi.service;
 
+import com.alwis.ecommerce.productcatalogapi.error.ProductNotFoundException;
 import com.alwis.ecommerce.productcatalogapi.model.Category;
 import com.alwis.ecommerce.productcatalogapi.model.Product;
 import com.alwis.ecommerce.productcatalogapi.repository.CategoryRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -35,8 +37,14 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product getProductById(Long id) {
-        return productRepository.findById(id).get();
+    public Product getProductById(Long id) throws ProductNotFoundException {
+        Optional<Product> product = productRepository.findById(id);
+
+        if(!product.isPresent()){
+            throw new ProductNotFoundException("Product not available");
+        }
+
+        return product.get();
     }
 
     @Override

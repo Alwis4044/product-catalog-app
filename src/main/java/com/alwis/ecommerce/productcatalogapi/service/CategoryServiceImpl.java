@@ -1,11 +1,13 @@
 package com.alwis.ecommerce.productcatalogapi.service;
 
+import com.alwis.ecommerce.productcatalogapi.error.CategoryNotFoundException;
 import com.alwis.ecommerce.productcatalogapi.model.Category;
 import com.alwis.ecommerce.productcatalogapi.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
@@ -25,8 +27,15 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Category getCategoryById(Long id) {
-        return categoryRepository.findById(id).get();
+    public Category getCategoryById(Long id) throws CategoryNotFoundException {
+
+         Optional<Category> category = categoryRepository.findById(id);
+
+         if(!category.isPresent()){
+             throw new CategoryNotFoundException("Category not available");
+         }
+
+         return category.get();
     }
 
     @Override

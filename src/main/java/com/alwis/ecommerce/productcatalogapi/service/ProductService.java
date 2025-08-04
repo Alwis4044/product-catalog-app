@@ -1,5 +1,6 @@
 package com.alwis.ecommerce.productcatalogapi.service;
 
+import com.alwis.ecommerce.productcatalogapi.error.ProductNotFoundException;
 import com.alwis.ecommerce.productcatalogapi.model.Product;
 
 import java.util.List;
@@ -7,6 +8,6 @@ import java.util.List;
 public interface ProductService {
     Product createProduct(Product product);
     List<Product> getAllProducts();
-    Product getProductById(Long id);
+    Product getProductById(Long id) throws ProductNotFoundException;
     void deleteProduct(Long id);
 }
