@@ -10,5 +10,5 @@ public interface CategoryService {
     Category createCategory(Category category);
     List<Category> getAllCategories();
     Category getCategoryById(Long id) throws CategoryNotFoundException;
-    void deleteCategory(Long id);
+    void deleteCategory(Long id) throws CategoryNotFoundException;
 }

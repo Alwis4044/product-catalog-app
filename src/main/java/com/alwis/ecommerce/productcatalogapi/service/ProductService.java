@@ -9,5 +9,5 @@ public interface ProductService {
     Product createProduct(Product product);
     List<Product> getAllProducts();
     Product getProductById(Long id) throws ProductNotFoundException;
-    void deleteProduct(Long id);
+    void deleteProduct(Long id) throws ProductNotFoundException;
 }
