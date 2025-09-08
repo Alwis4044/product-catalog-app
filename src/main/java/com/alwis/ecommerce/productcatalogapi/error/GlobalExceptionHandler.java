@@ -17,7 +17,7 @@ import java.util.Map;
 @Slf4j
 @ControllerAdvice
 @ResponseStatus
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler  {
 
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<ErrorMessage> categoryNotFoundException(CategoryNotFoundException exception, WebRequest request){
@@ -36,11 +36,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValidationExceptions(MethodArgumentNotValidException exception){
-        log.error("");
         Map<String, String> errors = new HashMap<>();
         exception.getBindingResult().getFieldErrors().forEach(error ->
-                errors.put(error.getField(), error.getDefaultMessage()));
+            errors.put(error.getField(), error.getDefaultMessage()));
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
