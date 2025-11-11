@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -55,5 +56,21 @@ public class CategoryServiceImpl implements CategoryService{
         }
 
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public Category updateCategory(Long id, Category categoryDetails) {
+
+        Category categoryDB = categoryRepository.findById(id).get();
+
+        if(Objects.nonNull(categoryDetails.getName()) && !"".equalsIgnoreCase(categoryDetails.getName())){
+            categoryDB.setName(categoryDetails.getName());
+        }
+
+        if(Objects.nonNull(categoryDetails.getDescription()) && !"".equalsIgnoreCase(categoryDetails.getDescription())){
+            categoryDB.setDescription((categoryDetails.getDescription()));
+        }
+
+        return categoryRepository.save(categoryDB);
     }
 }

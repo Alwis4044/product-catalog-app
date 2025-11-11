@@ -3,6 +3,7 @@ package com.alwis.ecommerce.productcatalogapi.controller;
 
 import com.alwis.ecommerce.productcatalogapi.error.CategoryNotFoundException;
 import com.alwis.ecommerce.productcatalogapi.model.Category;
+import com.alwis.ecommerce.productcatalogapi.repository.CategoryRepository;
 import com.alwis.ecommerce.productcatalogapi.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,13 @@ public class CategoryController {
     public Category getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
         log.info("GET /categories - Fetching category with id: {}", id);
         return categoryService.getCategoryById(id);
+    }
+
+    // Update Category
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @Valid @RequestBody Category categoryDetails){
+        Category updatedCategory = categoryService.updateCategory(id, categoryDetails);
+        return  ResponseEntity.ok(updatedCategory); // 200 OK
     }
 
     // Delete Category
